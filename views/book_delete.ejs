@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head'); -%>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <%- include('partials/sidenav'); -%>
+                </div>
+                <div class="col-sm-10">
+                    <!-- Contents start here... -->
+                    <h1><%= title %>: <%= book.name %></h1>
+                    <% if (book_copies.length) { %>
+                        <p><strong class="text-danger">Delete the following book instances before attempting to delete this book.</strong></p>
+                        <div class="m-2">
+                            <h4>Book Instances:</h4>
+                            <dl>
+                                <% book_copies.forEach((copy) => { %>
+                                    <dt><a href="<%= copy.url %>"><%= copy.id %></a></dt>
+                                    <dd><%= book.title %></dd>
+                                <% }); %>
+                            </dl>
+                        </div>
+                    <% } else { %>
+                        <p><strong>Do you really want to delete this book?</strong></p>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <input type="hidden" id="bookid" class="form-control" name="bookid" required value="<%= book._id %>">
+                            </div>
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        </form>
+                    <% } %>
+                    <!-- Contents end here!!! -->
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

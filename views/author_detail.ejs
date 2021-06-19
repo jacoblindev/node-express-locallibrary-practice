@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head'); -%>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <%- include('partials/sidenav'); -%>
+                </div>
+                <div class="col-sm-10">
+                    <!-- Contents start here... -->
+                    <h1><%= title %> : <%= author.name %></h1>
+                    <p><%= author.lifespan %> </p>
+                    <div style="margin: 20px 20px 0 0 ;">
+                        <h4>Books</h4>
+                        <dl>
+                            <% if (author_books.length> 0) { %>
+                                <% author_books.forEach((book)=> { %>
+                                    <dt><a href="<%= book.url %>"><%= book.title %></a></dt>
+                                    <dd><%= book.summary %></dd>
+                                <% }); %>
+                            <% } else { %>
+                                <p>This author has no books.</p>
+                            <% } %>
+                        </dl>
+                    </div>
+                    <hr>
+                    <p><a href="<%= author.url + '/update' %>">Update author</a></p>
+                    <p><a href="<%= author.url + '/delete' %>">Delete author</a></p>
+                    <!-- Contents end here!!! -->
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

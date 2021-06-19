@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head'); -%>
+
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <%- include('partials/sidenav'); -%>
+                </div>
+                <div class="col-sm-10">
+                    <!-- Contents start here... -->
+                    <h1>Book: <%= title %>
+                    </h1>
+                    <p><strong>Author:</strong>
+                        <a href="<%= book.author.url %>">
+                            <%= book.author.name %>
+                        </a>
+                    </p>
+                    <p><strong>Summary:</strong>
+                        <%= book.summary %>
+                    </p>
+                    <p><strong>ISBN:</strong>
+                        <%= book.isbn %>
+                    </p>
+                    <p><strong>Genre:</strong>
+                        <% book.genre.forEach((val, index)=> { %>
+                            <a href="<%= val.url %>">
+                                <%= val.name %>, 
+                            </a>
+                        <% }) %>
+                    </p>
+                    <div style="margin: 20px 20px;">
+                        <h4>Copies</h4>
+                        <hr>
+                        <% if (book_instances.length > 0) { %>
+                            <% book_instances.forEach((instance) => { %>
+                                <% if (instance.status == 'Available') { %>
+                                    <p class="text-success"><%= instance.status %></p>
+                                <% } else if (instance.status == 'Maintenance') { %>
+                                    <p class="text-warning"><%= instance.status %></p>
+                                <% } else { %>
+                                    <p class="text-danger"><%= instance.status %></p>
+                                <% } %>
+                                <p><strong>Imprint:</strong><%= instance.imprint %></p> 
+                                <% if (instance.status != 'Available') { %>
+                                    <p><strong>Due Back:</strong><%= instance.due_back_formatted %> </p>
+                                <% } %>     
+                                <p><strong>ID:</strong><a href="<%= instance.url %>"><%= instance.id %></a></p>
+                            <% }); %> 
+                        <% } else { %>
+                        <p>There are no copies of this book in the library.</p>
+                        <% } %>
+                    </div>
+                    <hr>
+                    <p><a href="<%= book.url + '/delete' %>">Delete Book</a></p>
+                    <p><a href="<%= book.url + '/update' %>">Update Book</a></p>
+                    <!-- Contents end here!!! -->
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
