@@ -4,6 +4,7 @@
   "engines": {
     "node": "14.15.3"
   },
+  "author": "Jacob Lin",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
